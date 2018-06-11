@@ -1,10 +1,5 @@
 pragma solidity ^0.4.4;
-/*
-Require a Phone App + PC application GUI friendly
-Keep Personal Information on a Flash Disque THAT MUST BE KEPT SAFE, 
-automatic plug means data can be accessed from that pc.
-Do not use Jpeg or bmp only PNG supported or else it will ruin the hash with random pixel diffrence due to dft
-*/ 
+
 contract AgreedOnThatData{ // this tool will help lawyers get proofs of documentations, as well as vocal promises that agreed on all parties.
 	
 	struct 	Person { //Can make the variables more efficient
@@ -43,11 +38,7 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		Contracts[0].IsActivated = true;
 		Contracts[0].DoesAgree[msg.sender] = true;
 		Contracts[0].Partners.push( msg.sender);
-		/*Contracts.push(Genesis);
-		Contracts[1].ContractHash = "GenesisContract2";
-		Contracts[1].IsActivated = true;
-		Contracts[1].DoesAgree[msg.sender] = true;
-		Contracts[1].Partners.push( msg.sender);*/
+	
 	}
 	modifier IsAdmin(){
 		bool _Legit = false;
@@ -113,8 +104,7 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		}
 
 		
-		 // in each revert require etc we are losing money, make a great userGUIAPP to protect it
-		 // Le partenaire Qui a call cette function est daccord pour ce contract
+	
 		Contracts[ContractNumber].DoesAgree[msg.sender] = true;
 		
 
@@ -155,11 +145,7 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		uint num = getContractNumber(Contract_Hash);
 		require (num != 0);
 		return Contracts[num].IsActivated;
-	}/*
-	Admin: 
-		AgreedOnThatData.deployed().then(function(instance){AOTD=instance});acc = web3.eth.accounts ;DzCoin.deployed().then(function(instance){DC=instance}) ; 
-		AOTD.WeMadeAContract([acc[0]],"AA")
-	*/
+	}
 	function getPartners(string ContractHash) public constant returns  (address[] PartnersConcerned)
 	{ // Works
 		uint  _ContractNumber= getContractNumber (ContractHash);
@@ -187,51 +173,4 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 
 	//function AwardAttestation is the same as WeMadeAContract Student+School Contract 
 }
-/* issues :
-1)will the system continue without internet?
-	Data will be available cause ipfs but the blockchain will be frozen. So no more new contracts/interactions.
-2)Data Availability  to foreign people
-ipfs hash will be only provided 
-3)First Contract must be clear (to return 0 in getContractNumber)
-4)NationalID string better ? to avoid 0141118 turn to 141118 or make a function that controls that (string is heavier)
 
-	ThingsToDo:
-	1) code the call functions for different variables for specific READERS:
-4) monthly Clearing of data storage (unActivated Contracts)
-Simulation:
-kill %1 ;truffle compile;testrpc -s Dz & truffle migrate --reset;echo "AgreedOnThatData.deployed().then(function(instance){AOTD=instance});acc = web3.eth.accounts ;AOTD.WeMadeAContract( [acc[0] ],\"GenenisContract\");" | xclip;truffle console
-AOTD.AddPerson(acc[1],"Chebli","Zaki Omar","8 mai 45","Kouba1994",161,"QQ")
-AOTD.WeMadeAContract([acc[0],acc[1]],"QQ")
-
-
-
-Other Accounts: 
-AgreedOnThatData.deployed().then(function(instance){AOTD=instance});acc = web3.eth.accounts ;DzCoin.deployed().then(function(instance){DC=instance}) ; 
-
-
-
-Out of Gas : infinite loop contractsume all gaz or delete Build Folder!!
-
-
-one two three four are different accounts in the network of the same blockchain
-WeMadeAContract takes the people who are engaged on a contract as an array(account=acc) plus the contract hash
-Window 1
-Window 2 we check if the contract is enabled and we see False because acc 3 did not agree yet
-Window 3 acc3 Agree on the same Hash
-Window 2 we check again and its activated
-the contract is Valid both acc2 & 3 agree on it!
-Window4 we add real Person Data on teh blockchain such name etc
-to identify the person we interact with
-*******JS****************
-//Dico
-var point = { x:3, y:2 }; 
-point["x"] // => 3;
-point.y // => 2;
-//Array
-a = [1 ,2 ,3]
-Samir
-Rahmani
-A
-TRST.Dz
-
-*/
