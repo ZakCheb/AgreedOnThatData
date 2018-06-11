@@ -1,8 +1,10 @@
 pragma solidity ^0.4.4;
 
-contract AgreedOnThatData{ // this tool will help lawyers get proofs of documentations, as well as vocal promises that agreed on all parties.
+contract AgreedOnThatData{ 
+// this tool will help lawyers get proofs of documentations, 
+// as well as vocal promises that agreed on all parties.
 	
-	struct 	Person { //Can make the variables more efficient
+	struct 	Person { 
 		bytes16 Name; // Asci character takes 1 byte  Giving more in arguements will give unexpected results
 		bytes16 LastName;
 		bytes16 PhysicalAddress;
@@ -13,9 +15,9 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		// any data that can identify more that person such as picture family related address etc ANYTHING with a structure also contain the data above. and its stored on a flash Disque
 		//Additional data contains Rhesus
 	}
-	struct Contract{ // all parties must provide the same ContractHash to be Activated
+	struct Contract{ // all parties must provide the same CDH to be Activated
 		
-		string ContractHash; // Will have a Layout to respect for each contract with gui its easy to make with a lawyer contain eth adresses too
+		string CDH; // Will have a Layout to respect for each contract with gui its easy to make with a lawyer contain eth adresses too
         mapping (address => bool) DoesAgree;
         address[] Partners;
 		bool IsActivated;
@@ -34,7 +36,7 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		Administrators[0] = msg.sender;
 		Contract memory Genesis ;
 		Contracts.push(Genesis);
-		Contracts[0].ContractHash = "GenesisContract";
+		Contracts[0].CDH = "GenesisContract";
 		Contracts[0].IsActivated = true;
 		Contracts[0].DoesAgree[msg.sender] = true;
 		Contracts[0].Partners.push( msg.sender);
@@ -98,25 +100,18 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		if (ContractNumber == 0) // if the contract does not exist yet we create a new one
 		{
 			Contract memory New;
-			New.ContractHash = H_ContractToAgreeOn;
+			New.CDH = H_ContractToAgreeOn;
 			Contracts.push(New);
 			ContractNumber = Contracts.length - 1 ;
 		}
-
-		
-	
 		Contracts[ContractNumber].DoesAgree[msg.sender] = true;
-		
-
 		uint NmbrOfPeopleThatAgree = 0;
-		
 		for (uint i=0 ; _Partners.length > i ; i++ ) // Pour chaque Partenaire dans le contract
 		{
 			if (Contracts[ContractNumber].DoesAgree[_Partners[i]] == true  )
 			{
                 NmbrOfPeopleThatAgree +=1;
 			}
-			
 			Contracts[ContractNumber].Partners.push(_Partners[i]); // on enregistre les Partenaires;
 		} 
 		if (NmbrOfPeopleThatAgree == _Partners.length) // Si tout lesont donnez le même 
@@ -131,7 +126,7 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		string memory C;
 	    for (uint i = 0; i < Contracts.length ;i++ ) // i = [0 1 2 3]
 	    {
-	        C = Contracts[i].ContractHash;
+	        C = Contracts[i].CDH;
 			if (  keccak256(C) ==  keccak256(_H_ContractToAgreeOn_))
 			{
                 return i;
@@ -146,9 +141,9 @@ contract AgreedOnThatData{ // this tool will help lawyers get proofs of document
 		require (num != 0);
 		return Contracts[num].IsActivated;
 	}
-	function getPartners(string ContractHash) public constant returns  (address[] PartnersConcerned)
+	function getPartners(string CDH) public constant returns  (address[] PartnersConcerned)
 	{ // Works
-		uint  _ContractNumber= getContractNumber (ContractHash);
+		uint  _ContractNumber= getContractNumber (CDH);
 		require (_ContractNumber != 0);
 		uint length = Contracts[_ContractNumber].Partners.length;
 		address[] memory  PartnersConcerned_ = new address[](length);
