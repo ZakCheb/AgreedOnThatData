@@ -13,20 +13,20 @@ Finaly the parties are linked with that document hash, if anyone do not honor hi
 
 # Pseudo CDH
 
-||List Person Concerned :                   ||
-||    Person1                               ||
-||    Person2                               ||
-||    Person3                               || 
-||    Person4                               ||
-||                                          ||
-||We agreed to do:                          ||
-||  foo bar                                 ||
-||                                          ||
-||Punishement if someone do not honor:      ||
-||  Pay the other parties 100000$           ||
-||                                          ||
-||Signed by all the:                        ||
-||                            23/12/2013    ||
+List Person Concerned :                   
+    Person1                               
+    Person2                               
+    Person3                                
+    Person4                               
+                                          
+We agreed to do:                          
+  foo bar                                 
+                                          
+Punishement if someone do not honor:      
+  Pay the other parties 100000$           
+                                          
+Signed by all the:                        
+                            23/12/2013    
 
 
 
